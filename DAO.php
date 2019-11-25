@@ -8,7 +8,7 @@ class DAO
     private function Connect()
     {
         $this->my = new mysqli("localhost", "root", "", "prueba3");
-        if ($this->my->connect_errno) {
+        if ($this->my->connect_error) {
             die("error connecting to database");
         }
     }
@@ -25,7 +25,7 @@ class DAO
         $pac = $p->getPaciente();
         $diag = $p->getDiagnostico();
         $dias = $p->getDias();
-        $sql = "insert into hospitalizacion values('$id', '$pac', '$diag', '$dias')";
+        $sql = "insert into hospitalizacion values('$id','$pac','$diag','$dias')";
         $st = $this->my->query($sql);
         if ($this->my->affected_rows == 1) {
             echo "Success, Patient added to database";
@@ -46,7 +46,7 @@ class DAO
             $pac = $rs[1];
             $diag = $rs[2];
             $dias = $rs[3];
-            $p = new parent($id, $pac, $diag, $dias);
+            $p = new Paciente($id, $pac, $diag, $dias);
             $list[] = $p;
         }
         $this->disconnect();
