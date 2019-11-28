@@ -35,11 +35,11 @@ class DAO
         $this->disconnect();
     }
 
-    public function List_patients()
+    public function Get_patient($id)
     {
         $this->Connect();
-        $sql = "select * from hospitalizacion";
-        $list = array();
+        $sql = "select * from hospitalizacion where id='$id'";
+
         $st = $this->my->query($sql);
         while ($rs = mysqli_fetch_array($st)) {
             $id = $rs[0];
@@ -53,16 +53,32 @@ class DAO
         return $list;
     }
 
-    public function Delete_Patient(Paciente $p)
+    public function List_patients()
     {
         $this->Connect();
-        $id = $p->getId();
-        $sql = "delete from hospitalizacion where hospitalizacion.id='$id'";
+        $sql = "select * from hospitalizacion";
+        $list = array();
+        $st = $this->my->query($sql);
+        while ($rs = mysqli_fetch_array($st)) {
+            $id = $rs[0];
+            $pac = $rs[1];
+            $diag = $rs[2];
+            $dias = $rs[3];
+            $p = new Paciente($id, $pac, $diag, $dias);
+        }
+        $this->disconnect();
+        return $p;
+    }
+
+    public function Delete_Patient($id)
+    {
+        $this->Connect();
+        $sql = "delete from hospitalizacion where id='$id'";
         $st = $this->my->query($sql);
         if ($this->my->affected_rows == 1) {
             echo "Success, Patient deleted from database";
         } else {
-            echo "Failure, Failed to delete patient";
+            echo "Failure, Failed to delete/find patient";
         }
         $this->disconnect();
     }
