@@ -35,6 +35,8 @@
             <input type="number" name="txtdias" id="txtdias" required="required">
             <br>
             <button type="submit" name="btnadd" id="btnadd">Agregar</button>
+            <button type="submit" name="btnmod" id="btnmod">Modificar</button>
+            <button type="submit" name="btndel" id="btndel">Eliminar</button>
             <br>
             <table width="1000" border="1">
                 <caption>Listado de Personas</caption>
