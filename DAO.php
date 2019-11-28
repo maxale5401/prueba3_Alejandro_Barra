@@ -53,8 +53,6 @@ class DAO
             $this->disconnect();
             return 0;
         }
-        
-        return $list;
     }
 
     public function List_patients()
