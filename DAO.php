@@ -46,7 +46,7 @@ class DAO
             $pac = $rs[1];
             $diag = $rs[2];
             $dias = $rs[3];
-            $p = new parent($id, $pac, $diag, $dias);
+            $p = new Paciente($id, $pac, $diag, $dias);
             $list[] = $p;
         }
         $this->disconnect();
