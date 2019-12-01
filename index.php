@@ -131,5 +131,11 @@
                 ?>
             </table>
         </form>
+    <?php
+    $count = $a->Patient_Stats(0);
+    $pro = $a->Patient_Stats(1);
+    echo "Cantidad de Pacientes:$count <br>";
+    echo "Promedio de Dias:$pro <br>";
+    ?>
     </body>
 </html>

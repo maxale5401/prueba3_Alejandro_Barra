@@ -35,25 +35,49 @@ class DAO
         $this->disconnect();
     }
 
-    public function Get_patient($id)
+    public function Patient_Stats($type)
+    {
+        $this->Connect();
+        $count = 0;
+        $sum = 0;
+        $sql = "select dias from hospitalizacion";
+        $st = $this->my->query($sql);
+        while ($rs = mysqli_fetch_array($st)) {
+            $count = $count + 1;
+            $sum += $rs[0];
+        }
+        $pro = $sum / $count;
+        switch ($type) {
+            case 0:
+                return $count;
+                break;
+            case 1:
+                return $pro;
+                break;
+        }
+    }
+
+    public function Get_Patient($id)
     {
         $this->Connect();
         $sql = "select * from hospitalizacion where id='$id'";
-
         $st = $this->my->query($sql);
-        if ($rs = mysqli_fetch_array($st)) {
-            $id = $rs[0];
+        $rs = mysqli_fetch_array($st);
+        if ($rs == !null) {
             $pac = $rs[1];
             $diag = $rs[2];
             $dias = $rs[3];
             $p = new Paciente($id, $pac, $diag, $dias);
             $this->disconnect();
             return $p;
+
         }else{
             $this->disconnect();
-            return 0;
+            return null;
         }
+
     }
+
 
     public function List_patients()
     {
